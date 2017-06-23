@@ -5,15 +5,48 @@
 
 <div id="app">
     {{message}}
-</div>
+    <br />
+    <span v-bind:title="title">
+        鼠标放在这里试试
+    </span>
+    <br />
+    <div v-if="show">
+        你能看见我
+    </div>
 
+    <div>
+        <select>
+            <option>全部</option>
+            <option v-for="city in citys" v-bind:value="city.id">{{city.cityName}}</option>
+        </select>
+    </div>
+
+    @*<div>
+        <p>{{userInput}}}</p>
+        <button v-on:click="reverseMessage">翻转文字</button>
+    </div>*@
+</div>
 
 <script type="text/javascript">
     var app = new Vue({
         el: '#app',
         data: {
             message:'世界好！',
+            title: '页面加载于：' + new Date(),
+            show: true,
+            citys: [
+                { id: 1, cityName: '北京' },
+                { id: 2, cityName: '上海' },
+                { id: 3, cityName: '石家庄' },
+                { id: 4, cityName: '香港' },
+            ],
+            //userInput:'大家好！',
+        },
+        //methods: {
+        //    reverseMessage: function () {
+        //        this.userInput = this.userInput.split('').reverse().join('');
+        //    }
 
-        }
+        //}
     });
 </script>
