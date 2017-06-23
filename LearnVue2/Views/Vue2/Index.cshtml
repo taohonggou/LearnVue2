@@ -3,5 +3,17 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>中文</h2>
+<div id="app">
+    {{message}}
+</div>
 
+
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message:'世界好！',
+
+        }
+    });
+</script>
