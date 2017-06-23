@@ -41,4 +41,42 @@
 
    `v-for`是循环自身，那个标签上有`v-for`就会循环那个标签
 
-   ​
+### 处理用户输入  
+
+1. `v-on`指令绑定事件监听器，通过他调用vue实例中定义的方法
+
+   ~~~html
+       <div>
+           <p>{{userInput}}</p>
+         	<!--reverseMessage不用加（）-->
+           <button v-on:click="reverseMessage">翻转文字</button>
+       </div>
+   ~~~
+
+   ~~~javascript
+   var app = new Vue({
+           el: '#app',
+           data: {
+               userInput:'大家好！',
+           },
+     		//vue所有的方法都放在这里
+           methods: {
+               reverseMessage: function () {
+                   this.userInput = this.userInput.split('').reverse().join('');
+               }
+           }
+       });
+   ~~~
+
+   在上面的代码中我们更新了DOM的状态，但是我们并没有写代码操作DOM--所有的DOM操作都由vue来处理。
+
+2. `v-model`实现双向绑定
+
+   ~~~html
+       <div>
+           <p>{{learn_v_model}}</p>
+           <input type="text" name="name" v-model="learn_v_model" />
+       </div>
+   ~~~
+
+   当我们在改变input的值时，p标签中的文字也会实时变化
