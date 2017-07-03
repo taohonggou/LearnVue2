@@ -1,5 +1,7 @@
 # 学习Vue笔记
 
+## Vue 介绍
+
 ### 声明是渲染
 
 1. 通过vue绑定的所有元素都是响应式的。我们通过控制台修改vue对象的中的值，对应的DOM元素的值也会变化。
@@ -80,3 +82,59 @@
    ~~~
 
    当我们在改变input的值时，p标签中的文字也会实时变化
+
+### 组件
+
+1. 没有参数的组件
+
+   ```javascript
+   // 定义名为 todo-item 的新组件
+   Vue.component('todo-item', {  //todo-item是组件名称
+     template: '<li>这是个待办项</li>'
+   })	
+   ```
+
+   组件的位置实在创建vue对象前面，使用代码如下：
+
+   ```html
+   <ol>
+   	<todo-item></todo-item>
+   </ol>
+   ```
+
+2. 有参数的组件
+
+   ~~~javascript
+       Vue.component('todo-item-param',{
+           props:['todo'],
+           template:'<li>{{todo.text}}</li>'
+       });
+   ~~~
+
+   使用
+
+   ~~~html
+               <todo-item-param 
+                                v-for="item in groceryList"
+                                v-bind:todo="item"    
+                                v-bind:key="item.id"  
+                                >
+               </todo-item-param>
+   <!--通过v-bind:todo给组件的属性赋值-->
+   ~~~
+
+## Vue 实例
+
+### 属性与方法
+
+每个vue实例都会*代理*其`data`对象所有属性
+
+~~~javascript
+var data={a:1};
+var vm=new Vue({
+	data:data,
+});
+vm.a===data.a  //->true
+~~~
+
+注意只有这些被代理的属性是**响应的**。如果在实例创建之后添加新的属性到实例上，它不会触发视图更新。

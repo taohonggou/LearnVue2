@@ -31,12 +31,42 @@
         <p>{{learn_v_model}}</p>
         <input type="text" name="name" v-model="learn_v_model" />
     </div>
+
+    <div>
+        <ol>
+            <todo-item></todo-item>
+        </ol>
+    </div>
+    <div>
+        <ol>
+            <todo-item-param 
+                             v-for="item in groceryList"
+                             v-bind:todo="item"
+                             v-bind:key="item.id"
+                             >
+            </todo-item-param>
+        </ol>
+    </div>
 </div>
 
 <script type="text/javascript">
+    Vue.component('todo-item',{
+            template:'<li>这是个待办项</li>',
+        });
+
+    Vue.component('todo-item-param',{
+        props:['todo'],
+        template:'<li>{{todo.text}}</li>'
+    });
+
     var app = new Vue({
         el: '#app',
         data: {
+            groceryList:[
+                { id: 0, text: '蔬菜' },
+                { id: 1, text: '奶酪' },
+                { id: 2, text: '随便其他什么人吃的东西' }
+            ],
             message:'世界好！',
             title: '页面加载于：' + new Date(),
             show: true,
@@ -54,6 +84,9 @@
                 this.userInput = this.userInput.split('').reverse().join('');
             }
 
-        }
+        },
+
     });
+
+
 </script>
