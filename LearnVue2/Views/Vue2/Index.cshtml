@@ -39,11 +39,9 @@
     </div>
     <div>
         <ol>
-            <todo-item-param 
-                             v-for="item in groceryList"
+            <todo-item-param v-for="item in groceryList"
                              v-bind:todo="item"
-                             v-bind:key="item.id"
-                             >
+                             v-bind:key="item.id">
             </todo-item-param>
         </ol>
     </div>
@@ -85,7 +83,24 @@
             }
 
         },
+        created:function(){
+            //`this` 指向 app 实例
+            console.log('data.message='+this.message);
+        }
+    });
 
+    var data={a:1};
+
+    var vm=new Vue({
+        el:'#app',
+        data:data
+    });
+
+    var elResult= vm.$el===document.getElementById('app');
+    var dataResult=vm.$data===data;
+
+    vm.$watch('a',function(newVal,oldVal){
+        console.log('newVal='+newVal+'；oldVal='+oldVal);
     });
 
 

@@ -98,6 +98,7 @@
 
    ```html
    <ol>
+       <!--todo-item就是组件的名称-->
    	<todo-item></todo-item>
    </ol>
    ```
@@ -138,3 +139,47 @@ vm.a===data.a  //->true
 ~~~
 
 注意只有这些被代理的属性是**响应的**。如果在实例创建之后添加新的属性到实例上，它不会触发视图更新。
+
+我们可以使用 `$`来直接使用vue对象中的属性，例如：
+
+~~~javascript
+var data={a:1};
+
+var vm=new Vue({
+    el:'#app',
+    data:data
+});
+
+var elResult= vm.$el===document.getElementById('app');
+var dataResult=vm.$data===data;
+
+//这个回调将在 `vm.a`  改变后调用
+vm.$watch('a',function(newVal,oldVal){
+    console.log('newVal='+newVal+'；oldVal='+oldVal);
+});
+~~~
+
+### 实例生命周期
+
+以下是实例生命周期图示
+
+![Lifecycle](https://cn.vuejs.org/images/lifecycle.png)
+
+使用如下
+
+```javascript
+var vm = new Vue({
+  data: {
+    a: 1
+  },
+  //是直接写在vm对象下面的
+  created: function () {
+    // `this` 指向 vm 实例
+    console.log('a is: ' + this.a)
+  }
+})
+// -> "a is: 1"
+```
+
+## 模板语法
+
