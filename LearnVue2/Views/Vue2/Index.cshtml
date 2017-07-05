@@ -45,27 +45,38 @@
             </todo-item-param>
         </ol>
     </div>
+
+    <div>
+        <p>
+           我会变化： {{originMsg}}
+        </p>
+        <p v-once>
+            不会变化：{{testOnce}}
+        </p>
+    </div>
 </div>
 
 <script type="text/javascript">
-    Vue.component('todo-item',{
-            template:'<li>这是个待办项</li>',
-        });
+    Vue.component('todo-item', {
+        template: '<li>这是个待办项</li>',
+    });
 
-    Vue.component('todo-item-param',{
-        props:['todo'],
-        template:'<li>{{todo.text}}</li>'
+    Vue.component('todo-item-param', {
+        props: ['todo'],
+        template: '<li>{{todo.text}}</li>'
     });
 
     var app = new Vue({
         el: '#app',
         data: {
-            groceryList:[
+            originMsg:'正常消息',
+            testOnce: 'testOnce',
+            groceryList: [
                 { id: 0, text: '蔬菜' },
                 { id: 1, text: '奶酪' },
                 { id: 2, text: '随便其他什么人吃的东西' }
             ],
-            message:'世界好！',
+            message: '世界好！',
             title: '页面加载于：' + new Date(),
             show: true,
             citys: [
@@ -75,7 +86,7 @@
                 { id: 4, cityName: '香港' },
             ],
             userInput: '大家好！',
-            learn_v_model:'学习vue',
+            learn_v_model: '学习vue',
         },
         methods: {
             reverseMessage: function () {
@@ -83,24 +94,24 @@
             }
 
         },
-        created:function(){
+        created: function () {
             //`this` 指向 app 实例
-            console.log('data.message='+this.message);
+            console.log('data.message=' + this.message);
         }
     });
 
-    var data={a:1};
+    var data = { a: 1 };
 
-    var vm=new Vue({
-        el:'#app',
-        data:data
+    var vm = new Vue({
+        el: '#app',
+        data: data
     });
 
-    var elResult= vm.$el===document.getElementById('app');
-    var dataResult=vm.$data===data;
+    var elResult = vm.$el === document.getElementById('app');
+    var dataResult = vm.$data === data;
 
-    vm.$watch('a',function(newVal,oldVal){
-        console.log('newVal='+newVal+'；oldVal='+oldVal);
+    vm.$watch('a', function (newVal, oldVal) {
+        console.log('newVal=' + newVal + '；oldVal=' + oldVal);
     });
 
 
