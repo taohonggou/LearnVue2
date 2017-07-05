@@ -94,7 +94,7 @@
    })	
    ```
 
-   组件的位置实在创建vue对象前面，使用代码如下：
+   组件的位置是在创建vue对象前面，使用代码如下：
 
    ```html
    <ol>
@@ -186,5 +186,39 @@ var vm = new Vue({
 ### 插值
 
 1. 文本
+
+   常见形式“Mustache” 语法（双大括号）
+
+   使用`v-once`指令，可以实现一次性的赋值，当模型的值发生变化时页面不变
+
+   ~~~html
+           <p v-once>
+               不会变化：{{testOnce}}
+           </p>
+           <!--当我们改变testOnce的值时，页面不会发生变化-->
+   ~~~
+
+2. 纯html
+
+   使用 `v-html` 指令可以直接输出html
+
+   ~~~HTML
+   <div v-html="rawHtml"></div>
+   ~~~
+
+   ~~~javascript
+   rawHtml:'<p>my is p</p>'
+   //这是vue对象data中的值
+   ~~~
+
+   最后页面的效果如下
+
+   ~~~html
+   <div>
+     <p>my is p</p>
+   </div>
+   ~~~
+
+3. 属性
 
    ​

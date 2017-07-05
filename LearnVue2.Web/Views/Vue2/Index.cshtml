@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="app">
+    <h2>Index</h2>
+
+    <div>
+        <span>
+            我会变化： {{msg}}
+        </span>
+        <p v-once>
+            不会变化：{{testOnce}}
+        </p>
+    </div>
+
+    <div v-html="rawHtml">
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    Vue.component('todo-item', {
+        template: '<li>这是个待办项</li>',
+    });
+
+    Vue.component('todo-item-param', {
+        props: ['todo'],
+        template: '<li>{{todo.text}}</li>'
+    });
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            rawHtml:'<p>my is p</p>',
+            msg: '正常消息',
+            testOnce: 'testOnce',
+            groceryList: [
+                { id: 0, text: '蔬菜' },
+                { id: 1, text: '奶酪' },
+                { id: 2, text: '随便其他什么人吃的东西' }
+            ],
+            message: '世界好！',
+            title: '页面加载于：' + new Date(),
+            show: true,
+            citys: [
+                { id: 1, cityName: '北京' },
+                { id: 2, cityName: '上海' },
+                { id: 3, cityName: '石家庄' },
+                { id: 4, cityName: '香港' },
+            ],
+            userInput: '大家好！',
+            learn_v_model: '学习vue',
+        },
+        methods: {
+            reverseMessage: function () {
+                this.userInput = this.userInput.split('').reverse().join('');
+            }
+
+        },
+        created: function () {
+            //`this` 指向 app 实例
+            console.log('data.message=' + this.message);
+        }
+    });
+
+
+</script>
