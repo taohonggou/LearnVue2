@@ -253,7 +253,7 @@ var vm = new Vue({
 
 1. 参数
 
-   一些指令能接受一个参数，在指令后以冒号声明。
+   一些指令能接受一个参数，在指令后以**冒号**声明。
 
    ~~~html
    <a v-bind:href="url">my is a</a>
@@ -282,6 +282,8 @@ var vm = new Vue({
 
 过滤器可以用在两个地方：**mustache 插值和 v-bind 表达式**。过滤器应该被添加在 JavaScript 表达式的尾部，由“管道”符指示：
 
+过滤器函数总**接受表达式的值作为第一个参数**。
+
 ~~~html
 <p>
      {{value|capitalize}}
@@ -302,5 +304,96 @@ new Vue({
 })
 ~~~
 
+过滤器可以串联：
 
+~~~html
+        <p>
+            {{value|capitalize|addChar}}
+        </p>
+~~~
 
+`addChar`接受的值是`capitalize`处理过的
+
+过滤器是 JavaScript 函数，因此可以接受参数：
+
+```
+{{ message | filterA('arg1', arg2) }}
+```
+
+这里，字符串 `arg1` 将传给过滤器作为第二个参数， `arg2` 表达式的值将被求值然后传给过滤器作为第三个参数。
+
+### 缩写
+
+#### `v-bind`缩写
+
+~~~html
+<!-- 完整语法 -->
+<label v-bind:class="labelClass">标签</label>
+<!-- 缩写 -->
+<label :class="labelClass">标签</label>
+~~~
+
+#### `v-on`缩写
+
+~~~html
+<!-- 完整语法 -->
+<button v-on:click="doSomeThing">按钮</button>
+<!-- 缩写 -->
+<button @@click="doSomeThing">按钮</button>
+~~~
+
+## 计算属性
+
+~~~html
+<p>computed:{{addNumber}}</p>
+~~~
+
+~~~javascript
+
+computed: {
+            addNumber: function () {
+                return this.labelId + 1;
+            }
+        }
+~~~
+
+当vue对象中的labelId改变了，对应的计算结果也会同步
+
+**计算属性是基于它们的依赖进行缓存的**
+
+计算属性不能有参数
+
+## 组件
+
+### 使用组件
+
+#### 局部注册
+
+```javascript
+var Child = {
+  template: '<div>A custom component!</div>'
+}
+
+new Vue({
+  // ...
+  components: {//组件放在components下
+    // <my-component> 将只在父模板可用
+    'my-component': Child  //这里必须是对象，不能是文字
+  }
+})
+```
+
+#### data必须是函数
+
+~~~javascript
+Vue.component('component-test', {
+    template: '<div><button v-on:click="clickTimes+=1">click me：{{clickTimes}}</button></div>',
+    data: function () {
+        return {
+            clickTimes: 1,
+        };
+    }
+});
+~~~
+
+data中是组件需要的参数，类型vue对象的data
