@@ -221,4 +221,62 @@ var vm = new Vue({
 
 3. 属性
 
+   Mustache 不能在 HTML 属性中使用，应使用 [v-bind 指令](https://cn.vuejs.org/v2/api/#v-bind)：
+
+   ~~~html
+   <label v-bind:class="labelClass">标签</label>
+   ~~~
+
+   这对布尔值的属性也有效 —— 如果条件被求值为 false 的话该属性会被移除：
+
+   ~~~html
+   <button v-bind:disabled="isButtonDisabled" class="btn btn-primary">按钮</button>
+   ~~~
+
+4. 使用JavaScript表示
+
+   ~~~html
+   <label class="label" v-bind:class="isReView==1?'label-danger':'label-primary'" v-bind:id="'label'+labelId">标签</label>
+   <p>{{computers.split(',').join('+')}}</p>
+   ~~~
+
+   有个限制就是，每个绑定都只能包含**单个表达式**，所以下面的例子都**不会**生效。
+
+   ~~~html
+   <!-- 这是语句，不是表达式 -->
+   {{ var a = 1 }}
+   <!-- 流控制也不会生效，请使用三元表达式 -->
+   {{ if (ok) { return message } }}
+   ~~~
+
+### 指令
+
+1. 参数
+
+   一些指令能接受一个参数，在指令后以冒号声明。
+
+   ~~~html
+   <a v-bind:href="url">my is a</a>
+   ~~~
+
+   另一个例子是 `v-on` 指令，它用于监听 DOM 事件：
+
+   ~~~html
+   <button v-on:click="doSomeThing" class="btn btn-primary">按钮</button>
+   ~~~
+
+2. 修饰符
+
+   修饰符（Modifiers）是以半角句号 `.` 指明的特殊后缀，用于指出一个指令应该以特殊方式绑定。例如，`.prevent` 修饰符告诉 `v-on` 指令对于触发的事件调用 `event.preventDefault()`：
+
+   ~~~html
+   <form v-on:submit.prevent="onSubmit">
+        <input type="text" name="name" value="" />
+        <input type="submit"  value="提交" />
+   </form>
+   ~~~
+
+   当我点击提交后，会先执行`onSubmit`方法。
+
    ​
+

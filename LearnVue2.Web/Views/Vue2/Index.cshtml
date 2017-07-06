@@ -18,6 +18,28 @@
     <div v-html="rawHtml">
 
     </div>
+
+    <div>
+        <label class="label label-danger">标签</label>
+        <label v-bind:class="labelClass">标签</label>
+        <button v-bind:disabled="isButtonDisabled" class="btn btn-primary">按钮</button>
+    </div>
+
+    <div>
+        <label class="label" v-bind:class="isReView==1?'label-danger':'label-primary'" v-bind:id="'label'+labelId">标签</label>
+        <p>{{computers.split(',').join('+')}}</p>
+        <p v-once>
+            {{new Date()}}
+        </p>
+    </div>
+    <div>
+        <a v-bind:href="url">my is a</a>
+        <button v-on:click="doSomeThing" class="btn btn-primary">按钮</button>
+    </div>
+    <form v-on:submit.prevent="onSubmit">
+        <input type="text" name="name" value="" />
+        <input type="submit"  value="提交" />
+    </form>
 </div>
 
 
@@ -31,9 +53,15 @@
         template: '<li>{{todo.text}}</li>'
     });
 
-    var app = new Vue({
+    var vm = new Vue({
         el: '#app',
         data: {
+            url:'http://www.baidu.com',
+            computers:'dell,lenovo,hp',
+            labelId:3,
+            isReView:1,
+            isButtonDisabled: true,
+            labelClass:'label label-danger',
             rawHtml:'<p>my is p</p>',
             msg: '正常消息',
             testOnce: 'testOnce',
@@ -57,8 +85,13 @@
         methods: {
             reverseMessage: function () {
                 this.userInput = this.userInput.split('').reverse().join('');
+            },
+            doSomeThing: function () {
+                this.labelClass = 'label label-success';
+            },
+            onSubmit: function () {
+                console.log('onSubmit');
             }
-
         },
         created: function () {
             //`this` 指向 app 实例
