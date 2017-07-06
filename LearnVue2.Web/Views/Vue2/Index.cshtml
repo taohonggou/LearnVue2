@@ -40,6 +40,13 @@
         <input type="text" name="name" value="" />
         <input type="submit"  value="提交" />
     </form>
+
+    <!--过滤器-->
+    <div>
+        <p>
+            {{value|capitalize}}
+        </p>
+    </div>
 </div>
 
 
@@ -56,6 +63,7 @@
     var vm = new Vue({
         el: '#app',
         data: {
+            value:'abc',
             url:'http://www.baidu.com',
             computers:'dell,lenovo,hp',
             labelId:3,
@@ -96,7 +104,16 @@
         created: function () {
             //`this` 指向 app 实例
             console.log('data.message=' + this.message);
+        },
+        filters: {
+            capitalize: function (value) {
+                if (!value)
+                    return '';
+                value = value.toString();
+                return value.charAt(0).toUpperCase() + value.slice(1);
+            }
         }
+
     });
 
 

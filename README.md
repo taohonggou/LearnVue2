@@ -278,5 +278,29 @@ var vm = new Vue({
 
    当我点击提交后，会先执行`onSubmit`方法。
 
-   ​
+### 过滤器
+
+过滤器可以用在两个地方：**mustache 插值和 v-bind 表达式**。过滤器应该被添加在 JavaScript 表达式的尾部，由“管道”符指示：
+
+~~~html
+<p>
+     {{value|capitalize}}
+</p>
+~~~
+
+~~~javascript
+new Vue({
+  // ...
+  //所有的过滤器都放在这里
+  filters: {
+    capitalize: function (value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    }
+  }
+})
+~~~
+
+
 
