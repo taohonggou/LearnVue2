@@ -339,7 +339,7 @@ new Vue({
 <!-- 完整语法 -->
 <button v-on:click="doSomeThing">按钮</button>
 <!-- 缩写 -->
-<button @@click="doSomeThing">按钮</button>
+<button @click="doSomeThing">按钮</button>
 ~~~
 
 ## 计算属性
@@ -423,6 +423,23 @@ Vue.component('comp-props', {
 因为这里使用的是静态的参数，所用直接使用promsg就行，不用v-bind绑定-->
 ~~~
 
+传递多个参数
+
+~~~javascript
+    Vue.component('page', {
+        props: ['pagelist','pageCount'],//这里是字符串数组
+        template:'<p>{{pagelist}}+{{pageCount}}</p>',
+    });
+~~~
+
+注意，这里的第二个参数`pageCount`使用了驼峰命名，在传值时应该这样传
+
+~~~html
+<page pageList="abcdefg"  page-count="10"></page>
+~~~
+
+将驼峰命名的换成用 kebab-case (短横线隔开式) 
+
 #### 动态Prop
 
 ~~~javascript
@@ -454,3 +471,41 @@ prop 是单向绑定的：当父组件的属性变化时，将传导给子组件
 ~~~
 
 > 注意在 JavaScript 中对象和数组是引用类型，指向同一个内存空间，如果 prop 是一个对象或数组，在子组件内部改变它**会影响**父组件的状态。
+
+#### Prop验证
+
+~~~javascript
+Vue.component('comp-validate', {
+    props: {
+      // 基础类型检测 (`null` 意思是任何类型都可以)
+        propa: Number,
+      // 多种类型
+        propb: [String, Number],
+      // 必传且是字符串
+        propc: {
+            type: String,
+            required: false,
+        },
+       // 数字，有默认值
+        propd: {
+            type: Number,
+            default:100
+        },
+      // 数组/对象的默认值应当由一个工厂函数返回
+        prope: {
+            type: Object,
+            default: function () {
+                return {msg:'Hello World!'};
+            }
+        },
+       // 自定义验证函数，验证不通过时会报异常
+        propf: {
+            validator: function (value) {
+                return value > 10;
+            }
+        }
+    },
+    template:'<p>prop验证{{propd}}||{{prope.msg}}||{{propf}}</p>',
+});
+~~~
+

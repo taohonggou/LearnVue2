@@ -80,10 +80,50 @@
     <div>
         <comp-single-track v-bind:params="message"></comp-single-track>
     </div>
+
+    <page pageList="abcdefg"  page-count="10"></page>
+
+    <div>
+        @*<comp-validate v-bind:propa="1" ></comp-validate>
+    <comp-validate propb="1"></comp-validate>
+    <comp-validate propc="abc"></comp-validate>*@
+        <comp-validate propc="abc"></comp-validate>
+
+        <comp-validate v-bind:prope="compValidate"></comp-validate>
+
+        <comp-validate propf="9"></comp-validate>
+    </div>
 </div>
 
 
 <script type="text/javascript">
+    Vue.component('comp-validate', {
+        props: {
+            propa: Number,
+            propb: [String, Number],
+            propc: {
+                type: String,
+                required: false,
+            },
+            propd: {
+                type: Number,
+                default:100
+            },
+            prope: {
+                type: Object,
+                default: function () {
+                    return {msg:'Hello World!'};
+                }
+            },
+            propf: {
+                validator: function (value) {
+                    return value > 10;
+                }
+            }
+        },
+        template:'<p>prop验证{{propd}}||{{prope.msg}}||{{propf}}</p>',
+    });
+
     Vue.component('comp-single-track', {
         props: ['params'],
         template: '<p>{{addChar}}</p>',
@@ -126,13 +166,19 @@
     });
 
     Vue.component('page', {
-        props: ['pageList', 'totalCount'],
-        template: '',
+        props: ['pagelist','pageCount'],
+        template:'<p>{{pagelist}}+{{pageCount}}</p>',
     });
+    //template: '<p>{{promsg}}</p>',
+    //Vue.component('page', {
+    //    props: ['pageList'],
+    //    template: '<div><span>{{pageList}}abc</span></div>',
+    //});
 
     var vm = new Vue({
         el: '#app',
         data: {
+            compValidate: {msg:'vm.data.compValidate'},
             value: 'abc',
             url: 'http://www.baidu.com',
             computers: 'dell,lenovo,hp',
