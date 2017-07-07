@@ -396,4 +396,61 @@ Vue.component('component-test', {
 });
 ~~~
 
-data中是组件需要的参数，类型vue对象的data
+data中是组件需要的参数，类似vue对象的data，当组件第一次加载时会用data中的值
+
+#### 构成组件
+
+在vue中，父子组建的关系可以总结为**props down,events up**。父组件通过 **props** 向下传递数据给子组件，子组件通过 **events** 给父组件发送消息。
+
+![](https://cn.vuejs.org/images/props-events.png)
+
+### Prop
+
+#### 使用Prop传递数据
+
+父组件给子组件传递数据，子组件要显式地用 [`props` 选项](https://cn.vuejs.org/v2/api/#props)声明它期待获得的数据：
+
+~~~javascript
+Vue.component('comp-props', {
+    props: ['promsg'],     //这里的参数不能使用‘-’连字符，一定要注意
+    template: '<p>{{promsg}}</p>',
+});
+~~~
+
+~~~html
+<comp-props promsg="my comp-props"></comp-props>
+<!--
+因为这里使用的是静态的参数，所用直接使用promsg就行，不用v-bind绑定-->
+~~~
+
+#### 动态Prop
+
+~~~javascript
+<comp-props v-bind:promsg="message"></comp-props>
+<!--这里的message就是vue对象中定义的值-->
+~~~
+
+#### 单向数据流
+
+prop 是单向绑定的：当父组件的属性变化时，将传导给子组件，但是不会反过来。
+
+另外，每次父组件更新时，子组件的所有 prop 都会更新为最新值。这意味着你**不应该**在子组件内部改变 prop。
+
+~~~javascript
+    Vue.component('comp-single-track', {
+        props: ['params'],
+        template: '<p>{{addChar}}</p>',
+        //data: function () {
+        //    return { dataparam:this.params+'-data-param' }
+        //},
+        computed: {
+            addChar: function () {
+                return this.params + '-data-param';
+            }
+        }
+    });
+//当我使用data时，params的值发生变化，组件显示不变
+//我使用计算属性时，发生变化
+~~~
+
+> 注意在 JavaScript 中对象和数组是引用类型，指向同一个内存空间，如果 prop 是一个对象或数组，在子组件内部改变它**会影响**父组件的状态。

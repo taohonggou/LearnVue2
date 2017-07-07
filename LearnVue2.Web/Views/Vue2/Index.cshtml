@@ -38,7 +38,7 @@
     </div>
     <form v-on:submit.prevent="onSubmit">
         <input type="text" name="name" value="" />
-        <input type="submit"  value="提交" />
+        <input type="submit" value="提交" />
     </form>
 
     <!--过滤器-->
@@ -69,10 +69,40 @@
             </todo-item-param>
         </ol>
     </div>
+    <div>
+        <comp-props promsg="my comp-props"></comp-props>
+    </div>
+
+    <div>
+        <comp-props v-bind:promsg="message"></comp-props>
+    </div>
+
+    <div>
+        <comp-single-track v-bind:params="message"></comp-single-track>
+    </div>
 </div>
 
 
 <script type="text/javascript">
+    Vue.component('comp-single-track', {
+        props: ['params'],
+        template: '<p>{{addChar}}</p>',
+        //data: function () {
+        //    return { dataparam:this.params+'-data-param' }
+        //},
+        computed: {
+            addChar: function () {
+                return this.params + '-data-param';
+            }
+        }
+    });
+
+    Vue.component('comp-props', {
+        props: ['promsg'],
+        template: '<p>{{promsg}}</p>',
+    });
+
+
     var Child = {
         template: '<div>A custom component!</div>'
     }
@@ -96,21 +126,21 @@
     });
 
     Vue.component('page', {
-        props: ['pageList','totalCount'],
-        template:'',
+        props: ['pageList', 'totalCount'],
+        template: '',
     });
 
     var vm = new Vue({
         el: '#app',
         data: {
-            value:'abc',
-            url:'http://www.baidu.com',
-            computers:'dell,lenovo,hp',
-            labelId:3,
-            isReView:1,
+            value: 'abc',
+            url: 'http://www.baidu.com',
+            computers: 'dell,lenovo,hp',
+            labelId: 3,
+            isReView: 1,
             isButtonDisabled: true,
-            labelClass:'label label-danger',
-            rawHtml:'<p>my is p</p>',
+            labelClass: 'label label-danger',
+            rawHtml: '<p>my is p</p>',
             msg: '正常消息',
             testOnce: 'testOnce',
             groceryList: [
@@ -143,7 +173,7 @@
         },
         created: function () {
             //`this` 指向 app 实例
-            console.log('data.message=' + this.message);
+            //console.log('data.message=' + this.message);
         },
         filters: {
             capitalize: function (value) {
@@ -167,7 +197,7 @@
         }
     });
 
-    
+
 
 
 </script>
