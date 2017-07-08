@@ -13,5 +13,14 @@ namespace LearnVue2.Web.Controllers
         {
             return View();
         }
+
+        /// <summary>
+        /// Class 与 Style 绑定
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ClassAndStyleBind()
+        {
+            return View();
+        }
     }
 }

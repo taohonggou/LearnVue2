@@ -509,3 +509,50 @@ Vue.component('comp-validate', {
 });
 ~~~
 
+## Class与Style绑定
+
+### 绑定HTML Class
+
+~~~html
+<div v-bind:class="{active:isActive}">
+    <h2>测试对象绑定</h2>
+</div>
+<div class="static" v-bind:class="{active:isActive,'text-danger':hasError}">
+    <h2>测试同时存在</h2>
+</div>
+
+<div v-bind:class="classObj">
+    <h2>测试使用data中的对象</h2>
+</div>
+
+<div v-bind:class="classObject">
+    <h2>测试使用计算属性</h2>
+</div>
+~~~
+
+注意上面的`'text-danger'`，在class中间有`-`时需要用单引号引起来。
+
+~~~javascript
+var vm = new Vue({
+    el: '#app',
+    data: {
+        classObj: {
+            container: true,
+            'col-lg-6': true,  //样式中有-，所有要用单引号
+        },
+        title: 'Class 与 Style 绑定',
+        isActive: true,
+        hasError: false,
+        classType: 2,
+    },
+    computed: {
+        classObject: function () {
+            return {
+                hide: this.classType === 1,
+
+            };
+        }
+    }
+});
+~~~
+
