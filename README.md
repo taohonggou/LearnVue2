@@ -556,3 +556,70 @@ var vm = new Vue({
 });
 ~~~
 
+## 自定义指令
+
+指令和组件类似都有全局注册和局部注册
+
+~~~javascript
+//全局注册
+Vue.driective('focus',{
+  update:function(el){
+    el.focus();
+  }
+})
+
+//局部指令
+driectives:{
+  focus:{
+    update:function(el){
+      el.focus();
+    }
+  }
+}
+~~~
+
+然后你可以在模板中任何元素上使用新的 `v-focus` 属性：
+
+~~~javascript
+<input v-focus>
+~~~
+
+以下是两个指令
+
+~~~javascript
+directives: {
+    demo: {
+        bind: function (el, binding) {
+            if (binding.value <= 0) {
+                console.log('bind')
+                el.value = '';
+            }
+        },
+        update: function (el, binding) {
+            console.log('update:el.value=' + el.value);
+            if (binding.value <= 0)
+            {
+                console.log('update')
+                el.value = '';
+            }
+                       
+        }
+    },
+    //大多数情况下，我们可能想在 bind 和 update 钩子上做重复动作，并且不想关心其它的钩子函数。可以这样写:  
+    demoBrief: function (el, binding) {
+        if (binding.value <= 0) {
+            console.log('demoBrief')
+            el.value = '';
+        }
+    }
+}
+~~~
+
+使用如下：
+
+~~~html
+<input type="text" name="demo" v-demo="testdirect"  v-bind:value="testdirect"/>
+<!--指令的命名使用驼峰时，在使用时需要换成 kebab-case (短横线隔开式) -->
+<input type="text"  name="name" v-demo-brief="testdirect" v-bind:value="testdirect"/>
+~~~
+

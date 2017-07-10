@@ -19,6 +19,10 @@
     <div v-bind:class="classObject">
         <h2>测试使用计算属性</h2>
     </div>
+    <div >
+        <input type="text" name="demo" v-demo="testdirect"  v-bind:value="testdirect"/>
+        <input type="text"  name="name" v-demo-brief="testdirect" v-bind:value="testdirect"/>
+    </div>
 </div>
 
 @section scripts{
@@ -34,6 +38,7 @@
                 isActive: true,
                 hasError: false,
                 classType: 2,
+                testdirect:0,
             },
             computed: {
                 classObject: function () {
@@ -41,6 +46,31 @@
                         hide: this.classType === 1,
 
                     };
+                }
+            },
+            directives: {
+                demo: {
+                    bind: function (el, binding) {
+                        if (binding.value <= 0) {
+                            console.log('bind')
+                            el.value = '';
+                        }
+                    },
+                    update: function (el, binding) {
+                        console.log('update:el.value=' + el.value);
+                        if (binding.value <= 0)
+                        {
+                            console.log('update')
+                            el.value = '';
+                        }
+                       
+                    }
+                },
+                demoBrief: function (el, binding) {
+                    if (binding.value <= 0) {
+                        console.log('demoBrief')
+                        el.value = '';
+                    }
                 }
             }
         });
