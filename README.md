@@ -623,3 +623,24 @@ directives: {
 <input type="text"  name="name" v-demo-brief="testdirect" v-bind:value="testdirect"/>
 ~~~
 
+## 条件渲染
+
+### v-if
+
+~~~html
+<p v-if="bookType">代码大全</p>
+<p v-else>精通ASP.NET</p>
+<!--v-else 元素必须紧跟在 v-if 或者 v-else-if 元素的后面——否则它将不会被识别。-->
+~~~
+
+因为 `v-if` 是一个指令，需要将它添加到一个元素上。但是如果我们想切换多个元素呢？此时我们可以把一个 `<template>` 元素当做包装元素，并在上面使用 `v-if`。最终的渲染结果不会包含 `<template>` 元素。
+
+~~~html
+<template v-if="template">
+            <a>abcd</a>
+            <p>abcd</p>
+</template>
+~~~
+
+这样当template有值并且！=false时，就会同时显示a和p标签
+

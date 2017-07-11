@@ -22,5 +22,14 @@ namespace LearnVue2.Web.Controllers
         {
             return View();
         }
+
+        /// <summary>
+        /// 条件渲染
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Condition()
+        {
+            return View();
+        }
     }
 }

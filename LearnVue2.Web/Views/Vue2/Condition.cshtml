@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Condition";
+}
+
+<h2>条件渲染</h2>
+<div id="app">
+    <div>
+        <p v-if="bookType">代码大全</p>
+        <p v-else>精通ASP.NET</p>
+    </div>
+    <div>
+        <template v-if="template">
+            <a>abcd</a>
+            <p>abcd</p>
+        </template>
+        <template v-else>
+            <a>bbbb</a>
+            <p>bbbbb</p>
+        </template>
+    </div>
+    <div>
+        手机
+        <p v-if="phone=='cuizi'">锤子</p>
+        <p v-else-if="phone=='apple'">苹果</p>
+        <p v-else-if="phone=='huawei'">华为</p>
+        <p v-else>其他</p>
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                bookType: 1,
+                template: true,
+                phone:'cuizi'
+            }
+        });
+    </script>
+
+}
+
