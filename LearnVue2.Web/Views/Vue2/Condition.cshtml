@@ -26,6 +26,40 @@
         <p v-else-if="phone=='huawei'">华为</p>
         <p v-else>其他</p>
     </div>
+    <div>
+        <select>
+            <option v-for="(item,index) in address">
+                {{index}}-{{item}}
+            </option>
+        </select>
+        <ul>
+            <li v-for="item in address">{{item}}</li>
+        </ul>
+        <template v-if="loginType==='userName'">
+            <label>Username</label>
+            <input placeholder="Enter your username" key="userlogin">
+        </template>
+        <template v-else>
+            <label>Email</label>
+            <input placeholder="Enter your email" key="emaillogin">
+        </template>
+    </div>
+    <div>
+        <ol>
+            <template v-for="item in address">
+                <li>{{item}}</li>
+                <li>{{item}}</li>
+            </template>
+        </ol>
+        <div>
+            <ul>
+                <li v-for="(value,key,index) in $data">{{value}}-{{key}}-{{index}}</li>
+            </ul>
+        </div>
+        <ul>
+            <li v-for="item in 10">{{item}}</li>
+        </ul>
+    </div>
 </div>
 
 
@@ -36,7 +70,9 @@
             data: {
                 bookType: 1,
                 template: true,
-                phone:'cuizi'
+                phone: 'cuizi',
+                address: ['上地', '六里桥', '国家图书馆'],
+                loginType: 'userName'
             }
         });
     </script>

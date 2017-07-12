@@ -644,3 +644,54 @@ directives: {
 
 这样当template有值并且！=false时，就会同时显示a和p标签
 
+### v-else-if
+
+~~~html
+        <p v-if="phone=='cuizi'">锤子</p>
+        <p v-else-if="phone=='apple'">苹果</p>
+        <p v-else-if="phone=='huawei'">华为</p>
+        <p v-else>其他</p>
+~~~
+
+### key
+
+~~~html
+        <template v-if="loginType==='userName'">
+            <label>Username</label>
+            <input placeholder="Enter your username" key="userlogin">
+        </template>
+        <template v-else>
+            <label>Email</label>
+            <input placeholder="Enter your email" key="emaillogin">
+        </template>
+~~~
+
+vue通常会复用已有元素而不是从头开始渲染，如果不加key属性的话，会导致 上面的代码中切换 `loginType` 将不会清除用户已经输入的内容。
+
+## 列表渲染
+
+~~~html
+<option v-for="(item,index) in address">
+                {{index}}-{{item}}
+            </option>
+~~~
+
+v-for中使用索引
+
+~~~html
+            <template v-for="item in address">
+                <li>{{item}}</li>
+                <li>{{item}}</li>
+            </template>
+~~~
+
+如同 `v-if` 模板，你也可以用带有 `v-for` 的 `<template>` 标签来渲染多个元素块。
+
+遍历对象
+
+~~~html
+<div v-for="(value, key, index) in object">
+  {{ index }}. {{ key }} : {{ value }}
+</div>
+~~~
+
