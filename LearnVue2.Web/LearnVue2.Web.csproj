@@ -202,6 +202,7 @@
     <Content Include="Views\Vue2\Index.cshtml" />
     <Content Include="Views\Vue2\ClassAndStyleBind.cshtml" />
     <Content Include="Views\Vue2\Condition.cshtml" />
+    <Content Include="Views\Vue2\Component.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

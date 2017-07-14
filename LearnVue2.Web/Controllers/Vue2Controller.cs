@@ -31,5 +31,10 @@ namespace LearnVue2.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult Component()
+        {
+            return View();
+        }
     }
 }
